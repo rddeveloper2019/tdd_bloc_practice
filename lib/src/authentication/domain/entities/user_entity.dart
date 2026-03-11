@@ -8,19 +8,34 @@ class User extends Equatable {
     required this.avatar,
   });
 
+  final String id;
+  final String createdAt;
+  final String name;
+  final String avatar;
+
   factory User.empty() {
     return User(
-      id: 1,
+      id: "1",
       createdAt: "_empty.createdAt",
       name: "_empty.name",
       avatar: "_empty.avatar",
     );
   }
-  final int id;
-  final String createdAt;
-  final String name;
-  final String avatar;
 
   @override
-  List<Object?> get props => [id, createdAt, name, avatar];
+  List<Object> get props => [id, createdAt, name, avatar];
+
+  User copyWith({String? id, String? createdAt, String? name, String? avatar}) {
+    return User(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      name: name ?? this.name,
+      avatar: avatar ?? this.avatar,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'User{id=$id, createdAt=$createdAt, name=$name, avatar=$avatar}';
+  }
 }
