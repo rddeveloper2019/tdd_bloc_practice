@@ -45,7 +45,9 @@ void main() {
       final tModel2 = UserModel.empty();
       final tModel3 = tModel.copyWith();
 
+      //assert that UserModel.empty() returns same object
       expect(tModel2, equals(tModel));
+      //assert that copyWith returns new object
       expect(tModel3 == tModel, false);
     });
   });

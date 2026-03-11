@@ -1,4 +1,4 @@
-import '../utils/typedaf.dart';
+import '../utils/typedef.dart';
 
 abstract class UsecaseWithParams<ReturnType, Params> {
   const UsecaseWithParams();
