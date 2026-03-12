@@ -45,8 +45,30 @@ class AuthenticationRemoteDatasourceImpl
   }
 
   @override
-  Future<List<UserModel>> getUsers() {
-    // TODO: implement getUsers
-    throw UnimplementedError();
+  Future<List<UserModel>> getUsers() async {
+    try {
+      final response = await _client.get(
+        Uri.parse('$kBaseUrl$kGetUsersEndpoint'),
+      );
+
+      if (response.statusCode != 200) {
+        throw ApiException(
+          message: response.body,
+          statusCode: response.statusCode,
+        );
+      }
+
+      final List<DataMap> list = List<Map<String, dynamic>>.from(
+        jsonDecode(response.body),
+      );
+
+      final result = list.map((item) => UserModel.fromMap(item)).toList();
+
+      return result;
+    } on ApiException {
+      rethrow;
+    } catch (e) {
+      throw ApiException(message: e.toString(), statusCode: 505);
+    }
   }
 }

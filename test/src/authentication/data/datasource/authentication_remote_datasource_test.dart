@@ -90,4 +90,45 @@ void main() {
       },
     );
   });
+
+  group('getUsers', () {
+    final tUsers = [UserModel.empty()];
+    test(
+      'should call [AuthenticationRemoteDatasource.getUsers] successfully and return [List<User>]',
+      () async {
+        when(
+          () => client.get(Uri.parse('$kBaseUrl$kGetUsersEndpoint')),
+        ).thenAnswer(
+          (_) async => http.Response(jsonEncode([tUsers.first.toMap()]), 200),
+        );
+
+        final result = await remoteDatasource.getUsers();
+
+        expect(result, equals(tUsers));
+        verify(
+          () => client.get(Uri.parse('$kBaseUrl$kGetUsersEndpoint')),
+        ).called(1);
+        verifyNoMoreInteractions(client);
+      },
+    );
+    test(
+      'should throw [AuthenticationRemoteDatasource.getUsers] ApiException when status is not 200',
+      () async {
+        when(
+          () => client.get(Uri.parse('$kBaseUrl$kGetUsersEndpoint')),
+        ).thenAnswer((_) async => http.Response('Server error', 500));
+
+        expect(
+          () async => await remoteDatasource.getUsers(),
+          throwsA(ApiException(message: 'Server error', statusCode: 500)),
+        );
+
+        verify(
+          () => client.get(Uri.parse('$kBaseUrl$kGetUsersEndpoint')),
+        ).called(1);
+
+        verifyNoMoreInteractions(client);
+      },
+    );
+  });
 }
