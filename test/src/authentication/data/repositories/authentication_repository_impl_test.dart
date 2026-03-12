@@ -16,6 +16,10 @@ void main() {
     authRepo = AuthenticationRepositoryImpl(remoteDatasource);
   });
 
+  tearDown(() {
+    verifyNoMoreInteractions(remoteDatasource);
+  });
+
   final tException = ApiException(
     message: 'Unknown error occurred',
     statusCode: 500,
@@ -55,7 +59,6 @@ void main() {
             createdAt: createdAt,
           ),
         ).called(1);
-        verifyNoMoreInteractions(remoteDatasource);
       },
     );
     test(
@@ -87,13 +90,15 @@ void main() {
             createdAt: createdAt,
           ),
         ).called(1);
-
-        verifyNoMoreInteractions(remoteDatasource);
       },
     );
   });
 
   group('getUsers', () {
+    tearDown(() {
+      verify(() => remoteDatasource.getUsers()).called(1);
+    });
+
     test(
       'should call [AuthenticationRemoteDatasource.getUsers] successfully and return [List<User>]',
       () async {
@@ -105,9 +110,6 @@ void main() {
 
         //assert
         expect(result, isA<Right<dynamic, List<dynamic>>>());
-
-        verify(() => remoteDatasource.getUsers()).called(1);
-        verifyNoMoreInteractions(remoteDatasource);
       },
     );
     test(
@@ -119,9 +121,6 @@ void main() {
 
         //assert
         expect(result, equals(Left(ApiFailure.fromApiException(tException))));
-
-        verify(() => remoteDatasource.getUsers()).called(1);
-        verifyNoMoreInteractions(remoteDatasource);
       },
     );
   });

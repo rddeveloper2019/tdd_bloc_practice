@@ -17,6 +17,10 @@ void main() {
     remoteDatasource = AuthenticationRemoteDatasourceImpl(client);
   });
 
+  tearDown(() {
+    verifyNoMoreInteractions(client);
+  });
+
   group('createUser', () {
     final name = 'test.name';
     final avatar = 'test.avatar';
@@ -49,8 +53,6 @@ void main() {
             }),
           ),
         ).called(1);
-
-        verifyNoMoreInteractions(client);
       },
     );
 
@@ -85,8 +87,6 @@ void main() {
             }),
           ),
         ).called(1);
-
-        verifyNoMoreInteractions(client);
       },
     );
   });
@@ -108,7 +108,6 @@ void main() {
         verify(
           () => client.get(Uri.parse('$kBaseUrl$kGetUsersEndpoint')),
         ).called(1);
-        verifyNoMoreInteractions(client);
       },
     );
     test(
@@ -126,8 +125,6 @@ void main() {
         verify(
           () => client.get(Uri.parse('$kBaseUrl$kGetUsersEndpoint')),
         ).called(1);
-
-        verifyNoMoreInteractions(client);
       },
     );
   });
