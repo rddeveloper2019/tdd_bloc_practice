@@ -1,4 +1,4 @@
-import 'package:bloc_tdd/src/authentication/data/data.dart';
+import 'package:bloc_tdd/src/authentication/authentication.dart';
 
 abstract class AuthenticationRemoteDatasource {
   Future<void> createUser({
