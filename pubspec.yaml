@@ -17,6 +17,7 @@ dependencies:
   dartz: ^0.10.1
   http: ^1.6.0
   flutter_bloc: ^9.1.1
+  get_it: ^9.2.1
 
 dev_dependencies:
   flutter_test:
@@ -24,6 +25,7 @@ dev_dependencies:
 
   flutter_lints: ^6.0.0
   mocktail: ^1.0.4
+  bloc_test: ^10.0.0
 
 flutter:
   uses-material-design: true
