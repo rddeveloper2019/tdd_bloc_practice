@@ -3,7 +3,7 @@ import 'package:bloc_tdd/src/authentication/presentation/blocs/cubit/authenticat
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
-final GetIt sl = GetIt.instance();
+final GetIt sl = GetIt.instance;
 
 Future<void> init() async {
   sl

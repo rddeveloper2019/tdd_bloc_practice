@@ -1,4 +1,4 @@
-import 'package:bloc_tdd/src/authentication/authentication.dart';
+import 'package:bloc_tdd/src/authentication/domain/domain.dart';
 import 'package:bloc_tdd/src/authentication/presentation/blocs/cubit/authentication/authentication_cubit.dart';
 import 'package:bloc_tdd/src/core/core.dart';
 import 'package:dartz/dartz.dart';

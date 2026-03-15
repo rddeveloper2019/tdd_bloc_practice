@@ -29,6 +29,7 @@ class AuthenticationRemoteDatasourceImpl
       final response = await _client.post(
         Uri.parse('$kBaseUrl$kCreateUserEndpoint'),
         body: body,
+        headers: {'content-type': 'application/json'},
       );
 
       if (response.statusCode != 200 && response.statusCode != 201) {

@@ -1,6 +1,13 @@
+import 'package:bloc_tdd/src/authentication/authentication.dart';
+import 'package:bloc_tdd/src/authentication/presentation/blocs/cubit/authentication/authentication.dart';
+import 'package:bloc_tdd/src/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await init();
+
   runApp(const MyApp());
 }
 
@@ -12,23 +19,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'TDD BLOC Simple App',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.redAccent)),
-      home: const MyHomePage(title: 'TDD BLOC Simple App'),
+      home: BlocProvider(
+        create: (context) => sl<AuthenticationCubit>(),
+        child: HomeScreen(),
+      ),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
   }
 }
